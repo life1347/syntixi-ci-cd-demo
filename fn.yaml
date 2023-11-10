@@ -1,0 +1,41 @@
+apiVersion: core.syntixi.dev/v1
+kind: Function
+metadata:
+  name: hello
+  labels:
+    mirror.linkerd.io/exported: "true"
+    config.linkerd.io/enable-debug-sidecar: "true"
+spec:
+  bundle:
+    name: hello
+  entry: node hello.js
+  env:
+    - name: ENV
+      valueFrom:
+        configKeyRef:
+          key: foo
+          name: hello2
+  executionTimeout: 60
+  image: 'node:latest'
+  imagePullSecret: ''
+  scaleStrategy:
+    metrics:
+      - resource:
+          name: cpu
+          target:
+            averageUtilization: 80
+            type: Utilization
+        type: Resource
+  ports:
+    - name: http
+      containerPort: 80
+      protocol: TCP
+  schedulingPreference:
+    clusters:
+      '*':
+        maxReplicas: 1
+        minReplicas: 1
+        weight: 100
+    maxReplicas: 3
+    minReplicas: 1
+

@@ -1,0 +1,12 @@
+apiVersion: core.syntixi.dev/v1
+kind: Config
+metadata:
+  name: hello2
+spec:
+  data:
+    foo: YmFyMQ==
+  overrides:
+    - cluster: zone51
+      data:
+        foo: aGVsbG93b3JsZA==
+  type: opaque

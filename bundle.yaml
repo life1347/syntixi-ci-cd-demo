@@ -1,0 +1,8 @@
+apiVersion: core.syntixi.dev/v1
+kind: Bundle
+metadata:
+  name: hello
+spec:
+  deployment:
+    type: url
+    url: 'https://github.com/syntixi/examples/raw/master/hello.zip'
